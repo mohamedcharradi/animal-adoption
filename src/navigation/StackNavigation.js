@@ -7,8 +7,7 @@ import { BottomTabNavigation } from "./BottomTabNavigation";
 import AnimolPage from "../screens/components/BottomTabScreen/AnimolPage";
 import Conversation from "../screens/components/BottomTabScreen/conversation";
 import ProfileOption from "../screens/components/BottomTabScreen/ProfileOption";
-import Test from "../screens/components/Test";
-
+import LoadingScreen from "../screens/components/LoadingScreen";
 //const {createNativeStackNavigator} = require('@react-navigation/native-stack');
 
 const Stack = createNativeStackNavigator();
@@ -16,7 +15,7 @@ const Stack = createNativeStackNavigator();
 const EntryPointtNavigation = ({}) => {
   return (
     <Stack.Navigator
-      initialRouteName="SignUp"
+      initialRouteName="LoadingScreen"
       screenOptions={{ headerShown: false }}
     >
       <Stack.Screen name="mainScreen" component={HomeScreen} />
@@ -27,7 +26,7 @@ const EntryPointtNavigation = ({}) => {
       <Stack.Screen name="conversation" component={Conversation} />
       <Stack.Screen name="ProfileOption" component={ProfileOption} />
       <Stack.Screen name="BottomTab" component={BottomTabNavigation} />
-      <Stack.Screen name="Test" component={Test} />
+      <Stack.Screen name="LoadingScreen" component={LoadingScreen} />
     </Stack.Navigator>
   );
 };

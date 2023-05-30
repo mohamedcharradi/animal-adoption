@@ -1,12 +1,12 @@
-import {Color} from '../utils';
-import color from '../utils/colors';
-import {StyleSheet} from 'react-native';
+import { Color } from "../utils";
+import color from "../utils/colors";
+import { StyleSheet } from "react-native";
 
 export default StyleSheet.create({
   container: {
     backgroundColor: color.background_color,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   backgroundImage: {
     top: 0,
@@ -14,35 +14,35 @@ export default StyleSheet.create({
     right: 0,
     bottom: 0,
     zIndex: -1,
-    display: 'flex',
-    position: 'absolute',
+    display: "flex",
+    position: "absolute",
   },
   loaderStyle: {
-    position: 'absolute',
+    position: "absolute",
     left: 0,
     right: 0,
     top: 0,
     bottom: 0,
     opacity: 0.4,
-    backgroundColor: 'black',
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: "black",
+    justifyContent: "center",
+    alignItems: "center",
   },
   text: {
     color: color.black,
     fontSize: 50,
-    fontFamily: 'Raleway-Bold',
+    fontFamily: "Raleway-Bold",
     marginBottom: 20,
     marginTop: 150,
     marginLeft: 40,
   },
   inputView: {
-    width: '80%',
+    width: "80%",
     backgroundColor: color.white,
     borderRadius: 25,
     height: 50,
     marginBottom: 20,
-    justifyContent: 'center',
+    justifyContent: "center",
     padding: 20,
     marginLeft: 35,
   },
@@ -54,15 +54,15 @@ export default StyleSheet.create({
     color: color.black,
     fontSize: 11,
     marginLeft: 210,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   loginBtn: {
-    width: '80%',
+    width: "80%",
     backgroundColor: color.botton_color_1,
     borderRadius: 25,
     height: 50,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     marginTop: 30,
     marginBottom: 10,
     marginLeft: 35,
@@ -70,11 +70,11 @@ export default StyleSheet.create({
   loginText_1: {
     color: color.black,
     marginLeft: 150,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   loginText: {
     color: color.white,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
 
   ///tab navigation
@@ -118,7 +118,7 @@ export default StyleSheet.create({
   icon_search_home: {
     height: 28,
     width: 28,
-    tintColor: 'white',
+    tintColor: "white",
     marginLeft: 285,
     marginTop: -35,
   },
@@ -148,8 +148,8 @@ export default StyleSheet.create({
     marginRight: 10,
     marginHorizontal: 10,
     marginVertical: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   pic: {
     width: 115,
@@ -166,25 +166,25 @@ export default StyleSheet.create({
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
     marginHorizontal: 7,
-    alignItems: 'center',
+    alignItems: "center",
   },
   my_favourite_text: {
     fontSize: 30,
     color: color.rose,
-    fontStyle: 'italic',
+    fontStyle: "italic",
     marginTop: 20,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   /// favourite ann style
   favourite_icon: {
     width: 40,
     height: 40,
     margin: 5,
-    tintColor: 'red',
+    tintColor: "red",
     marginLeft: 260,
   },
   favourite_ann_zone: {
-    alignItems: 'center',
+    alignItems: "center",
     marginTop: 10,
   },
   favourite_ann: {
@@ -193,7 +193,7 @@ export default StyleSheet.create({
     backgroundColor: color.white,
     borderRadius: 10,
     marginTop: 7,
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   pic_ann: {
     width: 75,
@@ -205,7 +205,7 @@ export default StyleSheet.create({
   delet_pic: {
     width: 40,
     height: 40,
-    tintColor: 'red',
+    tintColor: "red",
     marginLeft: 10,
   },
 
@@ -231,9 +231,9 @@ export default StyleSheet.create({
   },
   icon_zone_img: {
     marginTop: -65,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
     paddingLeft: 70,
     paddingRight: 70,
   },
@@ -249,9 +249,9 @@ export default StyleSheet.create({
     backgroundColor: Color.white,
     borderRadius: 20,
     paddingLeft: 5,
-    justifyContent: 'center',
-    shadowColor: '#000',
-    shadowOffset: {width: 0, height: 1},
+    justifyContent: "center",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.8,
     shadowRadius: 2,
     elevation: 5,
@@ -270,8 +270,8 @@ export default StyleSheet.create({
     backgroundColor: Color.white,
     borderRadius: 20,
     paddingLeft: 5,
-    shadowColor: '#000',
-    shadowOffset: {width: 0, height: 1},
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.8,
     shadowRadius: 2,
     elevation: 5,
@@ -281,10 +281,10 @@ export default StyleSheet.create({
     borderRadius: 20,
     marginTop: 10,
     flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'center',
+    flexDirection: "row",
+    justifyContent: "center",
     flex: 1,
-    flexDirection: 'column',
+    flexDirection: "column",
   },
   add_commente: {
     height: 40,
@@ -306,7 +306,7 @@ export default StyleSheet.create({
     color: color.black,
     backgroundColor: color.white,
     marginLeft: 5,
-    borderColor: '#808080',
+    borderColor: "#808080",
     borderWidth: 1,
     marginTop: 5,
   },
@@ -315,7 +315,7 @@ export default StyleSheet.create({
     height: 45,
     backgroundColor: Color.botton_color_2,
     borderRadius: 50,
-    justifyContent: 'center',
+    justifyContent: "center",
     marginTop: 17,
     marginLeft: 5,
     elevation: 5,
@@ -344,19 +344,19 @@ export default StyleSheet.create({
   title_zone: {
     backgroundColor: Color.rose,
     height: 45,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   title_add_ann: {
     fontSize: 20,
     color: Color.white,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   img_add_zone: {
     marginTop: 10,
     height: 300,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   img_zone_ann: {
     height: 300,
@@ -364,8 +364,8 @@ export default StyleSheet.create({
     backgroundColor: Color.white,
     borderRadius: 20,
     elevation: 5,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   add_img: {
     width: 100,
@@ -383,7 +383,7 @@ export default StyleSheet.create({
   },
   input_add_ann: {
     height: 50,
-    width: 330,
+    width: "100%",
     fontSize: 15,
     marginTop: 5,
     paddingHorizontal: 10,
@@ -393,7 +393,7 @@ export default StyleSheet.create({
   },
   input_add_ann_description: {
     height: 80,
-    width: 330,
+    width: "100%",
     fontSize: 15,
     marginTop: 5,
     paddingHorizontal: 10,
@@ -401,29 +401,39 @@ export default StyleSheet.create({
     color: color.black,
     backgroundColor: color.grey_light,
   },
-
+  addPostBtn: {
+    width: "100%",
+    backgroundColor: color.rose,
+    borderRadius: 25,
+    height: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 30,
+    marginBottom: 10,
+    //marginLeft: 35,
+  },
   //// message page style
   ///
   header_mess: {
     backgroundColor: color.rose,
     height: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   header_title_mess: {
     fontSize: 20,
     color: Color.white,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   search_zone: {
     flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
     marginTop: 10,
   },
   search_message: {
-    backgroundColor: '#D3D3D3',
+    backgroundColor: "#D3D3D3",
     width: 320,
     height: 50,
     borderRadius: 20,
@@ -432,14 +442,14 @@ export default StyleSheet.create({
   icon_search_mess: {
     height: 30,
     width: 30,
-    tintColor: 'black',
+    tintColor: "black",
     marginTop: -40,
     marginLeft: 280,
   },
   message_zone: {
     marginTop: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   message: {
     width: 350,
@@ -466,13 +476,13 @@ export default StyleSheet.create({
   ///// conversation page style
   ///
   header_conv_page: {
-    flexDirection: 'row',
+    flexDirection: "row",
     backgroundColor: color.rose,
     height: 50,
   },
   header_conv: {
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     width: 280,
   },
   message_body: {
@@ -483,12 +493,12 @@ export default StyleSheet.create({
     width: 40,
     height: 40,
     margin: 5,
-    tintColor: 'white',
+    tintColor: "white",
   },
   message_footer: {
     backgroundColor: color.white,
     height: 60,
-    alignItems: 'center',
+    alignItems: "center",
   },
   input_message: {
     backgroundColor: Color.grey_light,
@@ -503,7 +513,7 @@ export default StyleSheet.create({
     height: 45,
     backgroundColor: Color.botton_color_2,
     borderRadius: 50,
-    justifyContent: 'center',
+    justifyContent: "center",
     marginTop: 5,
     marginLeft: 5,
     elevation: 5,
@@ -513,15 +523,15 @@ export default StyleSheet.create({
   header_profil: {
     backgroundColor: color.botton_color_2,
     height: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   profile_zone: {
     height: 150,
     marginTop: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'column',
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "column",
   },
   profiel_pic: {
     width: 150,
@@ -529,28 +539,28 @@ export default StyleSheet.create({
     borderRadius: 100,
   },
   user_name_profil_zone: {
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   user_name_profil: {
     fontSize: 40,
-    fontFamily: 'sans-serif-medium',
+    fontFamily: "sans-serif-medium",
     color: color.black,
   },
   option_zone: {
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     marginTop: 50,
   },
   profil_option: {
     backgroundColor: color.background_color,
     width: 320,
     height: 60,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     borderRadius: 20,
     paddingLeft: 10,
-    flexDirection: 'row',
+    flexDirection: "row",
     elevation: 2,
     marginBottom: 20,
   },
@@ -559,7 +569,7 @@ export default StyleSheet.create({
   },
   option_title: {
     fontSize: 20,
-    fontFamily: 'sans-serif-medium',
+    fontFamily: "sans-serif-medium",
     color: color.black,
   },
   go_pic_profile: {
@@ -568,19 +578,19 @@ export default StyleSheet.create({
   },
   option_title_dec: {
     fontSize: 20,
-    fontFamily: 'sans-serif-medium',
-    color: 'red',
+    fontFamily: "sans-serif-medium",
+    color: "red",
   },
   go_pic_profile_dec: {
     width: 30,
     height: 30,
-    tintColor: 'red',
+    tintColor: "red",
   },
 
   //// profile option style
   ////
   profile_optio_header: {
-    flexDirection: 'row',
+    flexDirection: "row",
     backgroundColor: color.botton_color_2,
     height: 50,
   },
@@ -616,18 +626,18 @@ export default StyleSheet.create({
     backgroundColor: color.rose,
     elevation: 5,
     borderRadius: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     marginLeft: 10,
   },
   botton_zone: {
     marginTop: 20,
-    flexDirection: 'row',
+    flexDirection: "row",
   },
   botton_text: {
     fontSize: 20,
     color: color.white,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   botton_modif: {
     width: 140,
@@ -635,8 +645,8 @@ export default StyleSheet.create({
     backgroundColor: color.botton_color_2,
     elevation: 5,
     borderRadius: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     marginLeft: 15,
   },
 });

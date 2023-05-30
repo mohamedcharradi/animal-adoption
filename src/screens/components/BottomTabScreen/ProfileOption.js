@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   Text,
   View,
@@ -8,11 +9,30 @@ import {
   Image,
   TextInput,
 } from "react-native";
-import React from "react";
+import { useSelector } from "react-redux";
 import * as utils from "../../../utils/";
 import styles from "../../../styles/Styles";
 
 function ProfileOption({ navigation }) {
+  const user = useSelector((state) => state);
+
+  // Access user data properties
+  const {
+    auth_id,
+    user_id,
+    email,
+    first_name,
+    last_name,
+    phone_number,
+    address,
+    role,
+    token,
+  } = user;
+  const [_first_name, setFirst_name] = useState(first_name);
+  const [_last_name, setLast_name] = useState(last_name);
+  const [_email, setEmail] = useState(email);
+  const [_phone_number, setPhone_number] = useState(phone_number);
+  const [_address, setAddress] = useState(address);
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
       <View style={styles.profile_optio_header}>
@@ -30,7 +50,6 @@ function ProfileOption({ navigation }) {
           </View>
         </View>
       </View>
-      <></>
       <SafeAreaView>
         <View style={styles.profile_zone}>
           <View>
@@ -49,16 +68,18 @@ function ProfileOption({ navigation }) {
             <Text style={styles.text_modif}>Nom : </Text>
             <TextInput
               style={styles.inputText_modif}
-              placeholder="User name"
+              placeholder="first name"
               placeholderTextColor={utils.Color.black}
+              value={_first_name}
             />
           </View>
           <View>
             <Text style={styles.text_modif}>Prenom : </Text>
             <TextInput
               style={styles.inputText_modif}
-              placeholder="User laste name"
+              placeholder="laste name"
               placeholderTextColor={utils.Color.black}
+              value={_last_name}
             />
           </View>
         </View>
@@ -66,8 +87,9 @@ function ProfileOption({ navigation }) {
           <Text style={styles.text_modif}>Email : </Text>
           <TextInput
             style={styles.inputText_email_modif}
-            placeholder="User.email@exemlpe.com"
+            placeholder="email@exemlpe.com"
             placeholderTextColor={utils.Color.black}
+            value={_email}
           />
         </View>
         <View>
@@ -76,6 +98,7 @@ function ProfileOption({ navigation }) {
             style={styles.inputText_email_modif}
             placeholder="user location"
             placeholderTextColor={utils.Color.black}
+            value={_address}
           />
         </View>
         <View>
@@ -84,11 +107,12 @@ function ProfileOption({ navigation }) {
             style={styles.inputText_email_modif}
             placeholder="+111 22 333 444"
             placeholderTextColor={utils.Color.black}
+            value={_phone_number}
           />
         </View>
         <SafeAreaView style={styles.botton_zone}>
           <View style={styles.botton_annuler}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.goBack()}>
               <Text style={styles.botton_text}>Annuler</Text>
             </TouchableOpacity>
           </View>

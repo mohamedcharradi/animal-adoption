@@ -45,7 +45,7 @@ function Signup({ navigation }) {
         visibilityTime: 6000,
       });
     }
-    if (data.error) {
+    if (data?.error) {
       Toast.show({
         type: "error",
         text1: data.error,
@@ -54,15 +54,7 @@ function Signup({ navigation }) {
     }
   }, [data]);
   //useEffect(()=>{},[error])
-  useEffect(() => {
-    console.log("show toast");
-    Toast.show({
-      type: "info",
-      text1: "Toast Example",
-      text2: "This is an example toast message",
-      visibilityTime: 6000,
-    });
-  }, []);
+
   return (
     <View style={styles.appContent}>
       <ImageBackground
@@ -113,6 +105,7 @@ function Signup({ navigation }) {
             //secureTextEntry
             style={styles.inputText}
             placeholder="Email"
+            keyboardType="email-address"
             placeholderTextColor={utils.Color.font_color}
             onChangeText={(text) => setEmail(text)}
           />
@@ -149,7 +142,7 @@ function Signup({ navigation }) {
         <TouchableOpacity>
           <Text
             style={styles.loginText_1}
-            onPress={() => navigation.navigate("mainScreen")}
+            onPress={() => navigation.navigate("Login")}
           >
             J'ai un compte{" "}
           </Text>

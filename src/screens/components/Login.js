@@ -5,11 +5,16 @@ import {
   TouchableOpacity,
   ScrollView,
   ImageBackground,
-  ActivityIndicator,
+  //ActivityIndicator,
 } from "react-native";
 import React, { useEffect, useState } from "react";
+import Toast from "react-native-toast-message";
+import { useDispatch } from "react-redux";
+import { useAuthApi } from "../../hooks/mutateApi";
+import { setUser } from "../../redux/actions/userAction";
 import * as utils from "../../utils/";
 import styles from "../../styles/Styles";
+
 //import { connect, useDispatch } from "react-redux";
 //import { login } from "../../redux/actions/userAction";
 //import { useForm, Controller } from "react-hook-form";
@@ -18,7 +23,9 @@ import styles from "../../styles/Styles";
   TOGGLE_LOADER,
 } from "../../redux/actions/actionTypes";
 */
-function Login({ navigation, ...props }) {
+function Login({ navigation }) {
+  const { isLoading, data, error, mutate } = useAuthApi();
+  const dispatch = useDispatch();
   /*const {
     control,
     handleSubmit,
@@ -28,7 +35,30 @@ function Login({ navigation, ...props }) {
   //const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPasword] = useState("");
+  const sigup = () => {
+    mutate("signin", {
+      email,
+      password,
+    });
+  };
 
+  useEffect(() => {
+    if (data) {
+      dispatch(setUser(data));
+      navigation.navigate("BottomTab");
+    }
+  }, [data]);
+
+  useEffect(() => {
+    if (error) {
+      Toast.show({
+        type: "error",
+        text1: error.data.message,
+        visibilityTime: 6000,
+      });
+      //console.log("error", error.data.message);
+    }
+  }, [error]);
   /*useEffect(() => {
     console.log("accesstoken", props.accessToken);
   }, []);
@@ -57,20 +87,22 @@ function Login({ navigation, ...props }) {
       <ScrollView>
         <Text style={styles.text}> Connexion </Text>
         <View style={styles.inputView}>
+          <TextInput
+            style={styles.inputText}
+            placeholder="Email"
+            keyboardType="email-address"
+            placeholderTextColor={utils.Color.font_color}
+            onChangeText={(text) => {
+              setEmail(text);
+            }}
+            //defaultValue={value}
+            //value={value}
+          />
           {/* <Controller
             control={control}
             render={({ field: { onChange, value } }) => {
               return (
-                <TextInput
-                  style={styles.inputText}
-                  placeholder="Email..."
-                  placeholderTextColor={utils.Color.font_color}
-                  onChangeText={(text) => {
-                    onChange(text);
-                  }}
-                  defaultValue={value}
-                  value={value}
-                />
+              
               );
             }}
             name="email"
@@ -81,21 +113,22 @@ function Login({ navigation, ...props }) {
           />*/}
         </View>
         <View style={styles.inputView}>
+          <TextInput
+            secureTextEntry
+            style={styles.inputText}
+            placeholder="Mot de passe...."
+            placeholderTextColor={utils.Color.font_color}
+            onChangeText={(text) => {
+              setPasword(text);
+            }}
+            //defaultValue={value}
+            //value={value}
+          />
           {/*<Controller
             control={control}
             render={({ field: { onChange, value } }) => {
               return (
-                <TextInput
-                  secureTextEntry
-                  style={styles.inputText}
-                  placeholder="Mot de passe...."
-                  placeholderTextColor={utils.Color.font_color}
-                  onChangeText={(text) => {
-                    onChange(text);
-                  }}
-                  defaultValue={value}
-                  value={value}
-                />
+               
               );
             }}
             name="password"
@@ -113,31 +146,23 @@ function Login({ navigation, ...props }) {
             Mot de passe oublié ?
           </Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.loginBtn}
-          //onPress={handleSubmit(loginRequest)}
-        >
-          <Text style={styles.loginText}>Connexion</Text>
+        <TouchableOpacity style={styles.loginBtn} onPress={sigup}>
+          <Text style={styles.loginText}>
+            {isLoading ? "Loading ..." : "Connexion"}
+          </Text>
         </TouchableOpacity>
         <TouchableOpacity>
           <Text
-            style={styles.loginText_1}
+            style={styles.loginBtn}
             onPress={() => navigation.navigate("SignUp")}
           >
             S'inscrire
           </Text>
         </TouchableOpacity>
       </ScrollView>
+      <Toast />
     </ImageBackground>
   );
 }
-/*function mapStateToProps(state) {
-  return {
-    accessToken: state.user.accessToken,
-  };
-}
-const mapDispatchToProps = {
-  loginRequest: login,
-};
-*/
-export default Login; /*connect(mapStateToProps, mapDispatchToProps)(Login);*/
+
+export default Login;
