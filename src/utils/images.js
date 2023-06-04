@@ -25,7 +25,7 @@ const Images = {
   dog_img: require("../assets/image/dog_img.jpg"),
   pic: require("../assets/image/pic.png"),
   delete: require("../assets/image/delete.png"),
-  no_image: require("../assets/image/no_image.png"),
+  //no_image: require("../assets/image/no_image.png"),
 };
 
 export default Images;

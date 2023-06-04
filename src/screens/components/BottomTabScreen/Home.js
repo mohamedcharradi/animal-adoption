@@ -8,6 +8,7 @@ import {
   ScrollView,
   FlatList,
   Image,
+  ActivityIndicator,
 } from "react-native";
 import React, { useEffect } from "react";
 import * as utils from "../../../utils/";
@@ -31,32 +32,21 @@ function Home({ navigation }) {
     getCatList("categorie");
     getPostList("posts");
   }, []);
-  /*useEffect(() => {
-    console.log("fetch data", data);
-    if (data) {
-      console.log("data =========> ", data);
-    }
-  }, [data]);
-  useEffect(() => {
-    if (error) {
-      console.log("error =========> ", error);
-    }
-  }, [error]);
-  console.log("--------------------------------", postListLoading);*/
   const Card = ({ item }) => {
     return (
       <View style={styles.home_ann_box}>
-        <TouchableOpacity onPress={() => navigation.navigate("AnimolPage")}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate("AnimolPage", { item })}
+        >
           <View style={{ flexDirection: "column" }}>
             <View style={styles.image_ann_home}>
               <Image
-                //source={utils.Images.no_image}
                 source={
                   item.images[0]
                     ? {
                         uri: item.images[0]?.url,
                       }
-                    : utils.Images.no_image
+                    : utils.Images.pic
                 }
                 style={styles.pic}
               />
@@ -119,7 +109,7 @@ function Home({ navigation }) {
         </View>
         <View>
           {catListLoading ? (
-            <Text>Loading...</Text>
+            <ActivityIndicator size="large" color="#0000ff" />
           ) : (
             <ScrollView>
               <FlatList
@@ -159,7 +149,7 @@ function Home({ navigation }) {
               }}
             >
               {postListLoading ? (
-                <Text>Loadding...</Text>
+                <ActivityIndicator size="large" color="#0000ff" />
               ) : (
                 <View
                   style={{

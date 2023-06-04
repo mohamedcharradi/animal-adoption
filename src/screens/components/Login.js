@@ -15,14 +15,6 @@ import { setUser } from "../../redux/actions/userAction";
 import * as utils from "../../utils/";
 import styles from "../../styles/Styles";
 
-//import { connect, useDispatch } from "react-redux";
-//import { login } from "../../redux/actions/userAction";
-//import { useForm, Controller } from "react-hook-form";
-/*import {
-  LOGIN_USER_SUCCESS,
-  TOGGLE_LOADER,
-} from "../../redux/actions/actionTypes";
-*/
 function Login({ navigation }) {
   const { isLoading, data, error, mutate } = useAuthApi();
   const dispatch = useDispatch();
@@ -56,31 +48,9 @@ function Login({ navigation }) {
         text1: error.data.message,
         visibilityTime: 6000,
       });
-      //console.log("error", error.data.message);
+      //console.log("error", error);
     }
   }, [error]);
-  /*useEffect(() => {
-    console.log("accesstoken", props.accessToken);
-  }, []);
-
-  /*const loginRequest = (data) => {
-    // dispatch({type: TOGGLE_LOADER, payload: true});
-    console.log("data", data);
-    props.loginRequest(
-      data,
-      (response) => {
-        console.log("response api", response);
-        //dispatch({type: TOGGLE_LOADER, payload: false});
-
-        navigation.navigate("BottomTab");
-      },
-      (err) => {
-        //dispatch({type: TOGGLE_LOADER, payload: false});
-
-        console.log("error api", err);
-      }
-    );
-  };*/
 
   return (
     <ImageBackground source={utils.Images.page} style={styles.backgroundImage}>

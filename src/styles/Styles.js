@@ -244,11 +244,11 @@ export default StyleSheet.create({
   },
   info_zone_ann_animol: {
     marginTop: 10,
-    height: 200,
+    //height: 200,
     width: 350,
     backgroundColor: Color.white,
     borderRadius: 20,
-    paddingLeft: 5,
+    padding: 15,
     justifyContent: "center",
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 1 },
@@ -265,7 +265,8 @@ export default StyleSheet.create({
   },
   info_zone_ann_owner: {
     marginTop: 10,
-    height: 135,
+    //height: 135,
+    padding: 10,
     width: 350,
     backgroundColor: Color.white,
     borderRadius: 20,
@@ -322,12 +323,11 @@ export default StyleSheet.create({
   },
   commente: {
     marginTop: 10,
-    height: 100,
+    //height: 100,
     width: 350,
     backgroundColor: color.white,
     borderRadius: 20,
-    paddingLeft: 15,
-    paddingTop: 10,
+    padding: 15,
     elevation: 5,
   },
   commente_user_name: {

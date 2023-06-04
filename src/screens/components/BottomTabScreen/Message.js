@@ -1,69 +1,61 @@
 import {
   Text,
   View,
-  ImageBackground,
   ScrollView,
   SafeAreaView,
   TouchableOpacity,
-  Image,
-  TextInput,
-} from 'react-native';
-import React from 'react';
-import * as utils from '../../../utils/';
-import styles from '../../../styles/Styles';
-function Message({navigation}) {
+  ActivityIndicator,
+} from "react-native";
+import { useEffect } from "react";
+import { useGetApi } from "../../../hooks/mutateApi";
+//import * as utils from "../../../utils/";
+import styles from "../../../styles/Styles";
+function Message({ navigation }) {
+  const {
+    data: messageList,
+    isLoading: messageListLoading,
+    error: messageListError,
+    get: getMessageList,
+  } = useGetApi();
+
+  useEffect(() => {
+    getMessageList(`message/last-conversations`);
+  }, []);
+  useEffect(() => {
+    console.log("messageList : ", messageList);
+  }, [messageList]);
   return (
-    <SafeAreaView style={{backgroundColor: 'white', flex: 1}}>
+    <SafeAreaView style={{ backgroundColor: "white", flex: 1 }}>
       <ScrollView>
-        <></>
         <View style={styles.header_mess}>
           <Text style={styles.header_title_mess}> Message </Text>
         </View>
-        <></>
-        <View style={styles.search_zone}>
-          <View>
-            <TextInput
-              style={styles.search_message}
-              placeholder="Recherche..."
-              placeholderTextColor={utils.Color.black}
-            />
-            <View>
-              <TouchableOpacity>
-                <Image
-                  style={styles.icon_search_mess}
-                  source={utils.Images.search}
-                />
-              </TouchableOpacity>
-            </View>
-          </View>
-        </View>
-        <></>
         <SafeAreaView>
-          <></>
-          <View style={styles.message_zone}>
-            <TouchableOpacity
-              onPress={() => navigation.navigate('conversation')}>
-              <View style={styles.message}>
-                <View style={{flex: 1, flexDirection: 'row'}}>
-                  <View
-                    style={{justifyContent: 'center', alignItems: 'center'}}>
-                    <Image
-                      style={styles.profil_pic_message}
-                      source={utils.Images.profie_photo}
-                    />
+          {messageListLoading ? (
+            <ActivityIndicator size="large" color="#0000ff" />
+          ) : (
+            messageList?.map((msg) => (
+              <View style={styles.message_zone}>
+                <TouchableOpacity
+                  onPress={() =>
+                    navigation.navigate("conversation", {
+                      to: msg.user_id,
+                    })
+                  }
+                >
+                  <View style={styles.message}>
+                    <View>
+                      <Text
+                        style={styles.user_name_message}
+                      >{`${msg.first_name} ${msg.last_name}`}</Text>
+                      {/*<Text style={styles.der_message}>{msg.text}</Text>*/}
+                    </View>
                   </View>
-                  <View>
-                    <Text style={styles.user_name_message}>User Name </Text>
-                    <Text style={styles.der_message}>le dernier message</Text>
-                  </View>
-                </View>
+                </TouchableOpacity>
               </View>
-            </TouchableOpacity>
-          </View>
-
-          <></>
+            ))
+          )}
         </SafeAreaView>
-        <></>
       </ScrollView>
     </SafeAreaView>
   );

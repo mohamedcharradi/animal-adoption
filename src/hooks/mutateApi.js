@@ -2,37 +2,6 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { API } from "../utils/const";
-const token = "";
-
-export const useMutateApi = () => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [data, setData] = useState(null);
-  const [error, setError] = useState(null);
-
-  const fetchData = async (url, methode, data) => {
-    const config = {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    };
-    setIsLoading(true);
-    try {
-      const response = await axios[methode](url);
-      setData(response.data);
-      setError(null);
-    } catch (error) {
-      setError(error);
-      setData(null);
-    }
-    setIsLoading(false);
-  };
-
-  const mutate = async (url) => {
-    fetchData(url, methode, data);
-  };
-
-  return { isLoading, data, error, mutate };
-};
 
 export const useAuthApi = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -68,20 +37,9 @@ export const useGetApi = () => {
   const [error, setError] = useState(null);
   const user = useSelector((state) => state);
   const fetchData = async (url) => {
-    const {
-      /* auth_id,
-      user_id,
-      email,
-      first_name,
-      last_name,
-      phone_number,
-      address,
-      role,*/
-      token,
-    } = user;
+    const { token } = user;
     setIsLoading(true);
     try {
-      console.log(`${API}/${url}`);
       const response = await axios.get(`${API}/${url}`, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -99,7 +57,6 @@ export const useGetApi = () => {
       setIsLoading(false);
     }
   };
-
   const get = async (url) => {
     fetchData(url);
   };
@@ -122,7 +79,6 @@ export const useProtectedPostApi = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log("success ==================> ", response.data);
       setData(response.data);
       setError(null);
     } catch (axiosError) {
@@ -134,9 +90,77 @@ export const useProtectedPostApi = () => {
     }
     setIsLoading(false);
   };
+  const mutate = async (url, data) => {
+    fetchData(url, data);
+  };
+  return { isLoading, data, error, mutate };
+};
+
+export const useProtectedPatchApi = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [data, setData] = useState(null);
+  const [error, setError] = useState(null);
+  const token = useSelector((state) => state.token);
+  const fetchData = async (url, data) => {
+    setIsLoading(true);
+    console.log(token);
+    try {
+      const response = await axios.patch(`${API}/${url}`, data, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log("success ==================> ", response.data);
+      setData(response.data);
+      setError(null);
+    } catch (axiosError) {
+      setData(null);
+      const status = axiosError.response?.status;
+      const data = axiosError.response?.data;
+      const message = axiosError.response?.data.message;
+      console.log("error ==================> ", axiosError);
+      setError({ status, data, message });
+    }
+    setIsLoading(false);
+  };
 
   const mutate = async (url, data) => {
     fetchData(url, data);
+  };
+
+  return { isLoading, data, error, mutate };
+};
+
+export const useProtectedDeleteApi = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [data, setData] = useState(null);
+  const [error, setError] = useState(null);
+  const token = useSelector((state) => state.token);
+  const fetchData = async (url) => {
+    setIsLoading(true);
+    console.log(token);
+    try {
+      const response = await axios.delete(`${API}/${url}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log("success ==================> ", response.data);
+      setData(response.data);
+      setError(null);
+    } catch (axiosError) {
+      setData(null);
+      const status = axiosError.response?.status;
+      const data = axiosError.response?.data;
+      const message = axiosError.response?.data.message;
+      console.log("error ==================> ", axiosError);
+      setError({ status, data, message });
+    }
+    setIsLoading(false);
+  };
+
+  const mutate = async (url) => {
+    fetchData(url);
   };
 
   return { isLoading, data, error, mutate };

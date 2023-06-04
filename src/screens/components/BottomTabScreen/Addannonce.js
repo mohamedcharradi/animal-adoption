@@ -7,20 +7,21 @@ import {
   Image,
   TouchableOpacity,
   TextInput,
-  ImageBackground,
+  ActivityIndicator,
 } from "react-native";
-import React from "react";
 import Toast from "react-native-toast-message";
 import { launchImageLibrary } from "react-native-image-picker";
+import { Picker } from "@react-native-picker/picker";
+import { useGetApi } from "../../../hooks/mutateApi";
 import * as utils from "../../../utils/";
 import styles from "../../../styles/Styles";
 import { useProtectedPostApi } from "../../../hooks/mutateApi";
 
-function Addannonce() {
+function Addannonce({ navigation }) {
   // Function to handle image selection
   const [name, setName] = useState("");
   const [age, setAge] = useState("");
-  const [cat_id, setCatId] = useState("7fd74e4f-f55e-47a0-9084-999d46b2b44b");
+  const [cat_id, setCatId] = useState("");
   const [description, setDescription] = useState("");
   const [gender, setGender] = useState("");
   const [images, setImages] = useState([
@@ -31,6 +32,26 @@ function Addannonce() {
     console.log("Submit");
     mutate("posts", { name, age, cat_id, description, gender, images });
   };
+  const {
+    data: catList,
+    isLoading: catListLoading,
+    error: catListError,
+    get: getCatList,
+  } = useGetApi();
+  useEffect(() => {
+    getCatList("categorie");
+  }, []);
+
+  useEffect(() => {
+    if (data) {
+      Toast.show({
+        type: "success",
+        text1: "Animeau ajouter",
+        visibilityTime: 6000,
+      });
+    }
+    navigation.navigate("Homescree");
+  }, [data]);
   const selectImage = () => {
     launchImageLibrary(
       {
@@ -50,26 +71,7 @@ function Addannonce() {
       }
     );
   };
-  useEffect(() => {
-    if (data) {
-      Toast.show({
-        type: "success",
-        text1: "Post added successfully",
-        visibilityTime: 6000,
-      });
-      //console.log("error", error.data.message);
-    }
-  }, [data]);
-  useEffect(() => {
-    if (error) {
-      Toast.show({
-        type: "error",
-        text1: error.data.message,
-        visibilityTime: 6000,
-      });
-      //console.log("error", error.data.message);
-    }
-  }, [error]);
+
   return (
     <SafeAreaView style={{ backgroundColor: utils.Color.white, flex: 1 }}>
       <ScrollView>
@@ -85,6 +87,7 @@ function Addannonce() {
             </View>
           </View>
         </TouchableOpacity>
+
         <View style={styles.zone_info_ann}>
           <View>
             <Text style={styles.title_info_ann}>Nom d'animal :</Text>
@@ -98,11 +101,28 @@ function Addannonce() {
           </View>
           <View>
             <Text style={styles.title_info_ann}>Type d'animal : </Text>
-            <TextInput
-              style={styles.input_add_ann}
-              placeholder="saisir le type..."
-              placeholderTextColor={utils.Color.black}
-            />
+            <View style={styles.input_add_ann}>
+              {catListLoading ? (
+                <ActivityIndicator size="large" color="#0000ff" />
+              ) : (
+                <Picker
+                  selectedValue={cat_id}
+                  onValueChange={(itemValue) => {
+                    console.log(itemValue);
+                    setCatId(itemValue);
+                  }}
+                >
+                  <Picker.Item label="Selectionner categeorie" value="" />
+                  {catList?.map((item) => (
+                    <Picker.Item
+                      key={item.cat_id}
+                      label={item.name}
+                      value={item.cat_id}
+                    />
+                  ))}
+                </Picker>
+              )}
+            </View>
           </View>
           <View>
             <Text style={styles.title_info_ann}>Âge : </Text>
@@ -136,7 +156,11 @@ function Addannonce() {
           </View>
           <View style={{ height: 200 }}>
             <TouchableOpacity onPress={submit} style={styles.addPostBtn}>
-              <Text>{isLoading ? "Loading..." : "Ajouter"}</Text>
+              {isLoading ? (
+                <ActivityIndicator size="large" color="#0000ff" />
+              ) : (
+                <Text>"Ajouter"</Text>
+              )}
             </TouchableOpacity>
           </View>
         </View>

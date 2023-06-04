@@ -1,38 +1,65 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Text,
   View,
-  ImageBackground,
-  ScrollView,
   SafeAreaView,
   TouchableOpacity,
   Image,
   TextInput,
+  ActivityIndicator,
 } from "react-native";
-import { useSelector } from "react-redux";
+import Toast from "react-native-toast-message";
+import { useSelector, useDispatch } from "react-redux";
+import { useProtectedPatchApi } from "../../../hooks/mutateApi";
+import { setUser } from "../../../redux/actions/userAction";
 import * as utils from "../../../utils/";
 import styles from "../../../styles/Styles";
 
 function ProfileOption({ navigation }) {
   const user = useSelector((state) => state);
-
+  const dispatch = useDispatch();
   // Access user data properties
   const {
-    auth_id,
     user_id,
     email,
     first_name,
     last_name,
     phone_number,
     address,
-    role,
     token,
   } = user;
   const [_first_name, setFirst_name] = useState(first_name);
   const [_last_name, setLast_name] = useState(last_name);
-  const [_email, setEmail] = useState(email);
+  //const [_email, setEmail] = useState(email);
   const [_phone_number, setPhone_number] = useState(phone_number);
   const [_address, setAddress] = useState(address);
+  const {
+    isLoading: editLoading,
+    data: editData,
+    error: editError,
+    mutate: mutateEdit,
+  } = useProtectedPatchApi();
+
+  const edit = () => {
+    mutateEdit(`user/${user_id}`, {
+      first_name: _first_name,
+      last_name: _last_name,
+      phone_numbe: _phone_number,
+      address: _address,
+    });
+  };
+
+  useEffect(() => {
+    if (editData) {
+      Toast.show({
+        type: "success",
+        text1: "Profil modifier",
+        visibilityTime: 6000,
+      });
+      dispatch(setUser({ ...editData, token }));
+    }
+  }, [editData]);
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
       <View style={styles.profile_optio_header}>
@@ -71,6 +98,9 @@ function ProfileOption({ navigation }) {
               placeholder="first name"
               placeholderTextColor={utils.Color.black}
               value={_first_name}
+              onChangeText={(text) => {
+                setFirst_name(text);
+              }}
             />
           </View>
           <View>
@@ -80,17 +110,14 @@ function ProfileOption({ navigation }) {
               placeholder="laste name"
               placeholderTextColor={utils.Color.black}
               value={_last_name}
+              onChangeText={(text) => {
+                setLast_name(text);
+              }}
             />
           </View>
         </View>
         <View>
-          <Text style={styles.text_modif}>Email : </Text>
-          <TextInput
-            style={styles.inputText_email_modif}
-            placeholder="email@exemlpe.com"
-            placeholderTextColor={utils.Color.black}
-            value={_email}
-          />
+          <Text style={styles.text_modif}>Email : {email}</Text>
         </View>
         <View>
           <Text style={styles.text_modif}>Location : </Text>
@@ -99,6 +126,9 @@ function ProfileOption({ navigation }) {
             placeholder="user location"
             placeholderTextColor={utils.Color.black}
             value={_address}
+            onChangeText={(text) => {
+              setAddress(text);
+            }}
           />
         </View>
         <View>
@@ -108,6 +138,9 @@ function ProfileOption({ navigation }) {
             placeholder="+111 22 333 444"
             placeholderTextColor={utils.Color.black}
             value={_phone_number}
+            onChangeText={(text) => {
+              setPhone_number(text);
+            }}
           />
         </View>
         <SafeAreaView style={styles.botton_zone}>
@@ -117,12 +150,17 @@ function ProfileOption({ navigation }) {
             </TouchableOpacity>
           </View>
           <View style={styles.botton_modif}>
-            <TouchableOpacity>
-              <Text style={styles.botton_text}>Modifier</Text>
+            <TouchableOpacity onPress={edit}>
+              {editLoading ? (
+                <ActivityIndicator size="small" color="#0000ff" />
+              ) : (
+                <Text style={styles.botton_text}>Modifier</Text>
+              )}
             </TouchableOpacity>
           </View>
         </SafeAreaView>
       </SafeAreaView>
+      <Toast />
     </SafeAreaView>
   );
 }

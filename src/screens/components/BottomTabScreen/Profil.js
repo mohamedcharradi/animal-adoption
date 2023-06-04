@@ -14,23 +14,11 @@ function Profil({ navigation }) {
   const user = useSelector((state) => state);
   const dispatch = useDispatch();
   // Access user data properties
-  const {
-    auth_id,
-    user_id,
-    email,
-    email_verified,
-    createdAt,
-    first_name,
-    last_name,
-    phone_number,
-    address,
-    token,
-  } = user;
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
       <View style={styles.header_profil}>
         <Text style={styles.header_title_mess}>
-          {`${first_name} ${last_name}`}
+          {`${user?.first_name} ${user?.last_name}`}
         </Text>
       </View>
       <SafeAreaView>
@@ -44,7 +32,7 @@ function Profil({ navigation }) {
         </View>
         <View style={styles.user_name_profil_zone}>
           <Text style={styles.user_name_profil}>
-            {`${first_name} ${last_name}`}
+            {`${user?.first_name} ${user?.last_name}`}
           </Text>
         </View>
       </SafeAreaView>
@@ -67,8 +55,10 @@ function Profil({ navigation }) {
         </View>
         <View style={styles.profil_option}>
           <View style={styles.option_title_zone}>
-            <TouchableOpacity>
-              <Text style={styles.option_title}>Réservation</Text>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("Notification")}
+            >
+              <Text style={styles.option_title}>Notification</Text>
             </TouchableOpacity>
           </View>
           <View>
