@@ -97,7 +97,7 @@ export default StyleSheet.create({
 
   home_tab_view: {
     backgroundColor: color.white,
-    height: 130,
+    //height: 130,
     width: 345,
     elevation: 5,
     borderBottomLeftRadius: 20,

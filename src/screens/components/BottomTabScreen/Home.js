@@ -10,12 +10,15 @@ import {
   Image,
   ActivityIndicator,
 } from "react-native";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import * as utils from "../../../utils/";
 import styles from "../../../styles/Styles";
 import { useGetApi } from "../../../hooks/mutateApi";
+import { useSelector } from "react-redux";
 
 function Home({ navigation }) {
+  const [cadList, setCardList] = useState(null);
+  const user = useSelector((state) => state);
   const {
     data: postList,
     isLoading: postListLoading,
@@ -32,6 +35,14 @@ function Home({ navigation }) {
     getCatList("categorie");
     getPostList("posts");
   }, []);
+
+  const getCatListByCategory = (cat_id) => {
+    getPostList(`posts/search-by-category/${cat_id}`);
+  };
+
+  useEffect(() => {
+    if (postList) setCardList(postList);
+  }, [postList]);
   const Card = ({ item }) => {
     return (
       <View style={styles.home_ann_box}>
@@ -86,23 +97,31 @@ function Home({ navigation }) {
       <View style={{ width: 1080, height: 720 }}>
         <View style={styles.home_tab_view}>
           <View style={{ marginHorizontal: 15, marginTop: 10 }}>
-            <Text style={styles.user_name_home}> Bonjour, User_name </Text>
+            <Text style={styles.user_name_home}>
+              {" "}
+              Bonjour, {user?.first_name}{" "}
+            </Text>
             <Text style={styles.text_header_home}>
               Avez-vous quelque chose à recherché ?
             </Text>
-            <View>
-              <TextInput
-                style={styles.inputText_tab_nav}
-                placeholder="Recherche..."
-                placeholderTextColor={utils.Color.white}
-              />
-            </View>
-            <View>
-              <TouchableOpacity>
-                <Image
-                  style={styles.icon_search_home}
-                  source={utils.Images.search}
-                />
+            <View style={{ maxWidth: "100%", marginBottom: 10, marginTop: 5 }}>
+              <TouchableOpacity
+                onPress={() => {
+                  getPostList("posts");
+                }}
+              >
+                <View
+                  style={{
+                    height: 40,
+                    backgroundColor: "white",
+                    margin: 10,
+                    borderRadius: 50,
+                    elevation: 5,
+                    justifyContent: "center",
+                  }}
+                >
+                  <Text style={{ textAlign: "center" }}>Tous les annonce</Text>
+                </View>
               </TouchableOpacity>
             </View>
           </View>
@@ -111,32 +130,41 @@ function Home({ navigation }) {
           {catListLoading ? (
             <ActivityIndicator size="large" color="#0000ff" />
           ) : (
-            <ScrollView>
-              <FlatList
-                data={catList}
-                horizontal
-                keyExtractor={(cat) => cat.cat_id}
-                renderItem={(cat) => {
-                  return (
-                    <View
-                      style={{
-                        height: 40,
-                        width: 100,
-                        backgroundColor: "white",
-                        margin: 10,
-                        borderRadius: 50,
-                        elevation: 5,
-                        justifyContent: "center",
-                      }}
-                    >
-                      <Text style={{ textAlign: "center" }}>
-                        {cat.item.name}
-                      </Text>
-                    </View>
-                  );
-                }}
-              />
-            </ScrollView>
+            <>
+              <Text>Categories</Text>
+              <ScrollView>
+                <FlatList
+                  data={catList}
+                  horizontal
+                  keyExtractor={(cat) => cat.cat_id}
+                  renderItem={(cat) => {
+                    return (
+                      <TouchableOpacity
+                        onPress={() => {
+                          getCatListByCategory(cat.item.cat_id);
+                        }}
+                      >
+                        <View
+                          style={{
+                            height: 40,
+                            width: 100,
+                            backgroundColor: "white",
+                            margin: 10,
+                            borderRadius: 50,
+                            elevation: 5,
+                            justifyContent: "center",
+                          }}
+                        >
+                          <Text style={{ textAlign: "center" }}>
+                            {cat.item.name}
+                          </Text>
+                        </View>
+                      </TouchableOpacity>
+                    );
+                  }}
+                />
+              </ScrollView>
+            </>
           )}
         </View>
         <SafeAreaView>
@@ -149,7 +177,7 @@ function Home({ navigation }) {
               }}
             >
               {postListLoading ? (
-                <ActivityIndicator size="large" color="#0000ff" />
+                <Text>Loading ..</Text>
               ) : (
                 <View
                   style={{
@@ -158,13 +186,17 @@ function Home({ navigation }) {
                     flexWrap: "wrap",
                   }}
                 >
-                  <FlatList
-                    data={postList}
-                    renderItem={Card}
-                    keyExtractor={(post) => post.post_id}
-                    numColumns={2}
-                    style={{ marginBottom: 200 }}
-                  />
+                  {cadList?.length > 0 ? (
+                    <FlatList
+                      data={cadList}
+                      renderItem={Card}
+                      keyExtractor={(post) => post.post_id}
+                      numColumns={2}
+                      style={{ marginBottom: 200 }}
+                    />
+                  ) : (
+                    <Text>No Post in this category</Text>
+                  )}
                 </View>
               )}
             </View>

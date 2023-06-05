@@ -37,12 +37,11 @@ export const useGetApi = () => {
   const [error, setError] = useState(null);
   const user = useSelector((state) => state);
   const fetchData = async (url) => {
-    const { token } = user;
     setIsLoading(true);
     try {
       const response = await axios.get(`${API}/${url}`, {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${user?.token}`,
         },
       });
       setData(response.data);

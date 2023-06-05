@@ -33,11 +33,8 @@ function Signup({ navigation }) {
       phone_number,
       address,
     });
-    //console.log("sign up");
   };
-  //email, password, first_name, last_name, phone_number, address
   useEffect(() => {
-    console.log("sign up", data);
     if (data?.message == "success") {
       Toast.show({
         type: "success",

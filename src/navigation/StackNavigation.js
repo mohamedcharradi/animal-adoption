@@ -1,5 +1,6 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import ForgPass from "../screens/components/ForgPass";
+import ResetPass from "../screens/components/ResetPass";
 import { HomeScreen } from "../screens/components/HomeScreen";
 import Login from "../screens/components/Login";
 import Signup from "../screens/components/SignUp";
@@ -24,6 +25,7 @@ const EntryPointtNavigation = ({}) => {
       <Stack.Screen name="SignUp" component={Signup} />
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="ForgPass" component={ForgPass} />
+      <Stack.Screen name="ResetPass" component={ResetPass} />
       <Stack.Screen name="AnimolPage" component={AnimolPage} />
       <Stack.Screen name="MyAnimolPage" component={MyAnimolPage} />
       <Stack.Screen name="conversation" component={Conversation} />

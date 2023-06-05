@@ -9,13 +9,14 @@ import {
   ActivityIndicator,
 } from "react-native";
 import Toast from "react-native-toast-message";
-import * as utils from "../../utils/";
+import * as utils from "../../utils";
 import { useAuthApi } from "../../hooks/mutateApi";
 
-function ForgPass({ navigation }) {
+function ResetPass() {
   const [email, setEmail] = useState("");
+  const [code, setCode] = useState("");
+  const [password, setPasword] = useState("");
   const { isLoading, data, error, mutate } = useAuthApi();
-
   useEffect(() => {
     if (data?.message == "success") {
       Toast.show({
@@ -38,13 +39,12 @@ function ForgPass({ navigation }) {
       email,
     });
   };
-
   return (
     <View style={styles.containerImage}>
       <View>
         <Image style={styles.image} source={utils.Images.email} />
       </View>
-      <Text style={styles.Text}> Entre your Email :</Text>
+      <Text style={styles.Text}> Reset your password :</Text>
       <View style={styles.inputView}>
         <TextInput
           style={styles.inputText}
@@ -54,20 +54,38 @@ function ForgPass({ navigation }) {
           onChangeText={(text) => setEmail(text)}
         />
       </View>
+      <View style={styles.inputView}>
+        <TextInput
+          style={styles.inputText}
+          placeholder="Reset password code"
+          placeholderTextColor={utils.Color.font_color}
+          value={code}
+          onChangeText={(text) => setCode(text)}
+        />
+      </View>
+      <View style={styles.inputView}>
+        <TextInput
+          style={styles.inputText}
+          placeholder="New password"
+          placeholderTextColor={utils.Color.font_color}
+          value={password}
+          onChangeText={(text) => setPasword(text)}
+        />
+      </View>
+      <View style={styles.inputView}>
+        <TextInput
+          style={styles.inputText}
+          placeholder="Confirm New password"
+          placeholderTextColor={utils.Color.font_color}
+          onChangeText={(text) => setEmail(text)}
+        />
+      </View>
       <TouchableOpacity style={styles.loginBtn} onPress={submitRequest}>
         {isLoading ? (
           <ActivityIndicator size="large" color="#0000ff" />
         ) : (
           <Text style={styles.loginText}>Envoyer</Text>
         )}
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.loginBtn}
-        onPress={() => {
-          navigation.navigate("ResetPass");
-        }}
-      >
-        <Text style={styles.loginText}>Reset Password</Text>
       </TouchableOpacity>
       <Toast />
     </View>
@@ -88,6 +106,8 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   inputView: {
+    marginTop: 5,
+    marginBottom: 5,
     width: "80%",
     backgroundColor: "#f4f5f3",
     borderRadius: 25,
@@ -124,4 +144,4 @@ const styles = StyleSheet.create({
     color: "white",
   },
 });
-export default ForgPass;
+export default ResetPass;
